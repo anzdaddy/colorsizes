@@ -3,8 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"io"
-	"log"
 	"os"
 	"regexp"
 	"strings"
@@ -25,15 +23,9 @@ func splitIntoThrees(s string) []string {
 }
 
 func main() {
-	in := bufio.NewReader(os.Stdin)
-	for {
-		line, err := in.ReadString('\n')
-		if err != nil {
-			if err != io.EOF {
-				log.Fatal(err)
-			}
-			return
-		}
+	in := bufio.NewScanner(os.Stdin)
+	for in.Scan() {
+		line := in.Text()
 		if i := strings.IndexFunc(line, func(r rune) bool {
 			return !('0' <= r && r <= '9')
 		}); i != 0 {
